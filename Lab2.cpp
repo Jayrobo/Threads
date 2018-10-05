@@ -48,7 +48,6 @@ condition_variable cv;
 void* Method3(int incr)
 {
    using namespace std::chrono;
-   //unique_lock<mutex> lck(doorlock);
    high_resolution_clock::time_point t1 = high_resolution_clock::now();
    //now serving should be the thread to be processed otherwise lock the access
    //incr serves like a thread id and we want this process to be perform by number
@@ -58,13 +57,13 @@ void* Method3(int incr)
    { 
      // cv.wait(lck);
      
-     // if(now_serving == incr)
+     if(now_serving == incr)
       {
         doorlock.lock();
         counter++;
         now_serving++;
         doorlock.unlock();
-        notified = true;  
+       // notified = true;  
        // cv.notify_all();
       }
    }
